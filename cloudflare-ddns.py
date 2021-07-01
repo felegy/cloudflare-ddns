@@ -159,7 +159,7 @@ def updateIPs(ips):
         commitRecord(ip)
 
 if __name__ == '__main__':
-    PATH = os.getcwd() + "/"
+    PATH =  os.environ.get('CONFIG_DIR', os.getcwd()) + "/"
     version = float(str(sys.version_info[0]) + "." + str(sys.version_info[1]))
     shown_ipv4_warning = False
     shown_ipv6_warning = False
