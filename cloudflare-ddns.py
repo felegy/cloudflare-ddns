@@ -8,8 +8,9 @@ class GracefulExit:
     signal.signal(signal.SIGUSR1, self.restart)
   
   def restart(self, signum, frame):
-    print("🧩 Restart main thread...")
+    print("🧩 Restarting main thread...", end =" ")
     os.execv(sys.argv[0], sys.argv)
+    print("DONE")
   
   def exit_gracefully(self, signum, frame):
     print("🛑 Stopping main thread...")
