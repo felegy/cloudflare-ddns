@@ -5,12 +5,13 @@ class GracefulExit:
     self.kill_now = threading.Event()
     signal.signal(signal.SIGINT, self.exit_gracefully)
     signal.signal(signal.SIGTERM, self.exit_gracefully)
-    signal.signal(signal.SIGUSR1, self.restart)
+    signal.signal(signal.SIGHUP, self.restart)
   
   def restart(self, signum, frame):
-    print("🧩 Restarting main thread...", end =" ")
-    os.execv(sys.argv[0], sys.argv)
+    print("⚙️ Restarting main thread...", end =" ")
+    self.kill_now.set()
     print("DONE")
+    os.execv(sys.argv[0], sys.argv)
   
   def exit_gracefully(self, signum, frame):
     print("🛑 Stopping main thread...")
